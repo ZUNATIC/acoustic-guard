@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acoustic Guard — ExfilGuard</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230f6b5c'/%3E%3Crect x='6' y='3' width='4' height='7' rx='2' fill='%23fff'/%3E%3Cpath d='M4.5 8.5a3.5 3.5 0 0 0 7 0M8 12v1.5' stroke='%23fff' stroke-width='1.3' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/static/style.css?v=2.1.3">
+</head>
+<body>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="product">
+      <strong>Acoustic Guard</strong>
+      <span>ExfilGuard module</span>
+    </div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#monitor" data-page="monitor" class="active">Monitor</a>
+      <a href="#alerts" data-page="alerts">Alerts <span class="count" id="navAlerts"></span></a>
+      <a href="#environment" data-page="environment">Environment</a>
+      <a href="#policy" data-page="policy">Policy</a>
+      <a href="#audit" data-page="audit">Audit &amp; privacy</a>
+      <a href="#test" data-page="test">Test</a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="conn" id="conn"><i></i><span id="connText">Connecting…</span></div>
+      <div class="muted small" id="endpointName">—</div>
+      <label class="small muted theme-pick">Theme
+        <select id="themeSelect">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="system">System</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <!-- ================= Monitor ================= -->
+    <section class="page" id="page-monitor">
+      <header class="page-head">
+        <div>
+          <h1>Monitor</h1>
+          <p class="muted" id="runLine">Not monitoring.</p>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="startBtn">Start monitoring</button>
+          <button class="btn danger" id="stopBtn" hidden>Stop</button>
+        </div>
+      </header>
+
+      <div class="source-bar">
+        <fieldset class="seg" id="sourceSeg">
+          <legend class="sr-only">Microphone source</legend>
+          <label><input type="radio" name="source" value="browser" checked> This device</label>
+          <label><input type="radio" name="source" value="endpoint"> Endpoint microphone</label>
+        </fieldset>
+        <label class="field-inline">
+          <span class="muted">Microphone</span>
+          <select id="micSelect"></select>
+        </label>
+        <button class="btn" id="allowBtn" hidden>Allow microphone</button>
+        <label class="check small" id="autoSwitchWrap"><input type="checkbox" id="autoSwitch" checked> Switch to newly connected microphones</label>
+      </div>
+
+      <div class="notice" id="micNotice" hidden></div>
+      <div class="notice warn" id="mutedNotice" hidden>The input is completely silent. The microphone is probably muted or unplugged — check the system sound settings.</div>
+
+      <div class="meter-row">
+        <span class="voice" id="voiceDot" title="Voice detected"></span>
+        <div class="meter"><div class="meter-bar" id="meterBar"></div><div class="meter-floor" id="meterFloor" title="Noise floor"></div></div>
+        <span class="mono small muted" id="meterDb">— dB</span>
+      </div>
+
+      <div class="columns">
+        <div class="col-main">
+          <section class="block current" id="current">
+            <div class="current-head">
+              <span class="sev sev-NONE" id="curSev">NONE</span>
+              <span class="mono" id="curScore">0.00</span>
+              <span class="muted" id="curLang"></span>
+              <span class="muted small push" id="curMeta"></span>
+            </div>
+            <p class="utterance" id="curText" dir="auto">Waiting for speech.</p>
+            <p class="translation" id="curTrans" hidden></p>
+            <table class="detected" id="curMatches" hidden>
+              <thead><tr><th>Detected</th><th>Category</th><th>How</th></tr></thead>
+              <tbody></tbody>
+            </table>
+            <p class="small note" id="curNote" hidden></p>
+          </section>
+
+          <div class="notice alert" id="earlyWarning" hidden></div>
+
+          <section class="block">
+            <h2>This session</h2>
+            <table class="grid" id="sessionTable">
+              <thead><tr><th class="w-time">Time</th><th class="w-sev">Result</th><th class="w-lang">Lang</th><th>What was said</th></tr></thead>
+              <tbody><tr class="empty"><td colspan="4">Nothing analysed yet.</td></tr></tbody>
+            </table>
+          </section>
+        </div>
+
+        <aside class="col-side">
+          <section class="block">
+            <h2>Summary</h2>
+            <dl class="kv">
+              <dt>Alerts stored</dt><dd id="sumTotal">0</dd>
+              <dt>Critical / high</dt><dd id="sumSev">0 / 0</dd>
+              <dt>Last 24 hours</dt><dd id="sum24">0</dd>
+              <dt>Average alert time</dt><dd id="sumLatency">—</dd>
+              <dt>Languages heard</dt><dd id="sumLangs">—</dd>
+            </dl>
+          </section>
+          <section class="block">
+            <h2>Engine</h2>
+            <dl class="kv">
+              <dt>Input</dt><dd id="engInput">—</dd>
+              <dt>Speech model</dt><dd id="engSpeech">—</dd>
+              <dt>Second opinion</dt><dd id="engVerifier">—</dd>
+              <dt>Intent model</dt><dd id="engSemantic">—</dd>
+              <dt>Keywords</dt><dd id="engKeywords">—</dd>
+              <dt>Backend</dt><dd id="engBackend">—</dd>
+            </dl>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= Alerts ================= -->
+    <section class="page" id="page-alerts" hidden>
+      <header class="page-head">
+        <div>
+          <h1>Alerts</h1>
+          <p class="muted">HIGH and CRITICAL findings kept in the audit trail.</p>
+        </div>
+        <div class="actions">
+          <a class="btn" id="exportBtn" href="/api/v1/alerts/export.csv">Export CSV</a>
+        </div>
+      </header>
+      <div class="toolbar">
+        <select id="fSeverity" aria-label="Severity"><option value="">All severities</option><option>CRITICAL</option><option>HIGH</option></select>
+        <select id="fLanguage" aria-label="Language"><option value="">All languages</option></select>
+        <input type="search" id="fText" placeholder="Filter by phrase or transcript" aria-label="Filter">
+        <span class="muted small push" id="alertCount"></span>
+      </div>
+      <table class="grid" id="alertTable">
+        <thead><tr><th class="w-time">Time</th><th class="w-sev">Severity</th><th class="w-lang">Lang</th><th>Detected</th><th>Transcript</th><th>Signals</th></tr></thead>
+        <tbody><tr class="empty"><td colspan="6">No alerts.</td></tr></tbody>
+      </table>
+    </section>
+
+    <!-- ================= Environment ================= -->
+    <section class="page" id="page-environment" hidden>
+      <header class="page-head">
+        <div>
+          <h1>Environment</h1>
+          <p class="muted">Sound in the room other than speech content: noise floor, sudden sounds, raised voices, a muted input.</p>
+        </div>
+      </header>
+      <dl class="kv wide">
+        <dt>Current level</dt><dd class="mono" id="envLevel">—</dd>
+        <dt>Noise floor</dt><dd class="mono" id="envFloor">—</dd>
+        <dt>Normal speaking level</dt><dd class="mono" id="envSpeech">—</dd>
+      </dl>
+      <table class="grid" id="envTable">
+        <thead><tr><th class="w-time">Time</th><th>Event</th><th>Level</th><th>Above floor</th></tr></thead>
+        <tbody><tr class="empty"><td colspan="4">No events.</td></tr></tbody>
+      </table>
+    </section>
+
+    <!-- ================= Policy ================= -->
+    <section class="page" id="page-policy" hidden>
+      <header class="page-head">
+        <div>
+          <h1>Policy</h1>
+          <p class="muted">Every phrase this module listens for. The list is visible to everyone being monitored.</p>
+        </div>
+      </header>
+      <table class="grid" id="catTable">
+        <thead><tr><th>Category</th><th>Weight</th><th>Phrases</th><th>Languages</th><th>Note</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="tabs" id="langTabs" role="tablist"></div>
+      <div class="phrases" id="phraseList" dir="auto"></div>
+      <p class="muted small">Edit <code>config/threats.yaml</code> or send it to <code>PUT /api/v1/policy</code>; changes apply immediately.</p>
+    </section>
+
+    <!-- ================= Audit ================= -->
+    <section class="page" id="page-audit" hidden>
+      <header class="page-head">
+        <div>
+          <h1>Audit &amp; privacy</h1>
+          <p class="muted">Integrity of the stored record, who started monitoring, and what is kept.</p>
+        </div>
+        <div class="actions"><button class="btn" id="verifyBtn">Verify chain</button></div>
+      </header>
+      <div class="audit-status" id="auditStatus">Not checked.</div>
+      <h2>What is stored</h2>
+      <ul class="plain" id="privacyList"></ul>
+      <h2>Consent history</h2>
+      <table class="grid" id="consentTable">
+        <thead><tr><th class="w-time">Time</th><th>Action</th><th>Operator</th><th>Endpoint</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="danger-zone">
+        <div>
+          <strong>Erase all alerts</strong>
+          <p class="muted small">Right to erasure. The erasure itself is recorded so the audit chain still verifies.</p>
+        </div>
+        <button class="btn danger" id="eraseBtn">Erase alerts…</button>
+      </div>
+    </section>
+
+    <!-- ================= Test ================= -->
+    <section class="page" id="page-test" hidden>
+      <header class="page-head">
+        <div>
+          <h1>Test</h1>
+          <p class="muted">Check the engine without monitoring. Nothing here is saved as audio.</p>
+        </div>
+      </header>
+      <div class="test-grid">
+        <section class="block">
+          <h2>Text</h2>
+          <textarea id="testText" rows="4" dir="auto" placeholder="Type a sentence in any language"></textarea>
+          <button class="btn" id="testTextBtn">Analyse</button>
+        </section>
+        <section class="block">
+          <h2>Record a clip</h2>
+          <p class="muted small">Uses the microphone selected on the Monitor page. Up to 15 seconds.</p>
+          <button class="btn" id="recBtn">Record</button>
+          <span class="small mono" id="recState"></span>
+        </section>
+        <section class="block">
+          <h2>WAV file</h2>
+          <input type="file" id="wavInput" accept=".wav,audio/wav">
+          <button class="btn" id="wavBtn">Analyse file</button>
+        </section>
+      </div>
+      <section class="block" id="testResult" hidden></section>
+    </section>
+  </main>
+</div>
+
+<dialog id="consentDialog">
+  <form method="dialog" class="dialog">
+    <h3>Start monitoring</h3>
+    <p>Audio is analysed in memory only. No recording is written to disk or sent anywhere. Detected phrases, a risk score and the time are logged, together with this consent.</p>
+    <label class="field">Operator name<input type="text" id="operatorInput" maxlength="120" autocomplete="name"></label>
+    <label class="check"><input type="checkbox" id="consentBox"> People within range of the microphone have been told and have agreed to monitoring.</label>
+    <div class="dialog-actions">
+      <button class="btn" value="cancel" formnovalidate>Cancel</button>
+      <button class="btn primary" id="consentGo" value="ok" disabled>Start</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="eraseDialog">
+  <form method="dialog" class="dialog">
+    <h3>Erase all alerts?</h3>
+    <p>Stored alerts are removed permanently. The erasure is added to the audit chain.</p>
+    <div class="dialog-actions">
+      <button class="btn" value="cancel">Cancel</button>
+      <button class="btn danger" value="ok" id="eraseGo">Erase</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="tokenDialog">
+  <form method="dialog" class="dialog">
+    <h3>Access token</h3>
+    <p>This endpoint is protected. Enter the token set in its configuration.</p>
+    <label class="field">Token<input type="password" id="tokenInput" autocomplete="off" required></label>
+    <p class="small error" id="tokenError" hidden>That token was not accepted.</p>
+    <div class="dialog-actions">
+      <button class="btn primary" value="ok">Continue</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script src="/static/app.js?v=2.1.3"></script>
+</body>
+</html>

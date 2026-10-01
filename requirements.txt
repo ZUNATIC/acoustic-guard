@@ -1,0 +1,36 @@
+# ExfilGuard Acoustic Guard - runtime dependencies
+# Torch-free: every model runs on ONNX Runtime or CTranslate2 (CPU, int8).
+# Tested on Python 3.14 (Linux x86_64). Every package publishes wheels for Python 3.10+ on Linux and Windows.
+
+# API
+fastapi>=0.115
+uvicorn[standard]>=0.32
+pydantic>=2.9
+pydantic-settings>=2.6
+python-multipart>=0.0.12
+websockets>=13.1
+
+# audio capture + signal processing
+sounddevice>=0.5.1
+numpy>=2.1
+scipy>=1.14
+noisereduce>=3.0.3
+
+# speech recognition (multilingual Whisper via CTranslate2)
+faster-whisper>=1.1.0
+
+# VAD + semantic intent model
+onnxruntime>=1.19
+tokenizers>=0.20
+
+# keyword / phonetic matching
+pyahocorasick>=2.1.0
+rapidfuzz>=3.9
+
+# model download + config
+huggingface-hub>=0.25
+pyyaml>=6.0
+
+# tests
+pytest>=8.3
+httpx>=0.27

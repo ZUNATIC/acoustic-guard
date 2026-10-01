@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 985" font-family="Helvetica,Arial,sans-serif">
+<rect width="1520" height="985" fill="#ffffff"/>
+<text x="760.0" y="38" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="23" font-weight="700" fill="#111827">Acoustic Guard Engine — System Architecture</text>
+<text x="760.0" y="60" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#6b7280">ExfilGuard · optional microphone module · all inference local (CPU, int8) · no audio ever written to disk</text>
+<rect x="20" y="78" width="1480" height="735" rx="16" fill="none" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="38" y="100" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#9ca3af">ENDPOINT PROCESS  (python -m app)</text>
+<rect x="36" y="112" width="220" height="410" rx="14" fill="#e8f1fe" stroke="#9cc3f5" stroke-width="1.2"/>
+<text x="50" y="134" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#374151">1  CAPTURE  (either source)</text>
+<rect x="56" y="146" width="180" height="50" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="146.0" y="166.71428571428572" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12.5" font-weight="700" fill="#111827">Microphone</text>
+<text x="146.0" y="184.21428571428572" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="400" fill="#4b5563">any OS input device</text>
+<rect x="56" y="222" width="180" height="64" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="146.0" y="241.28571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Hardware detection</text>
+<text x="146.0" y="258.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">hot-plug poll · graceful</text>
+<text x="146.0" y="275.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">disable if no mic</text>
+<rect x="56" y="312" width="180" height="80" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="146.0" y="330.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Endpoint mic: PortAudio</text>
+<text x="146.0" y="347.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">16 kHz · mono · float32</text>
+<text x="146.0" y="364.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">512-sample blocks</text>
+<text x="146.0" y="381.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">bounded queue</text>
+<rect x="56" y="412" width="180" height="92" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="146.0" y="436.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Browser microphone</text>
+<text x="146.0" y="453.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">permission prompt</text>
+<text x="146.0" y="470.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">AudioWorklet → 16 kHz</text>
+<text x="146.0" y="487.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">frames over wss</text>
+<path d="M 236.0 458.0 L 266.0 458.0 L 266.0 181.0 L 291.0 181.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="291.0,181.0 280.4,183.8 280.4,178.2" fill="#4b5563"/>
+<path d="M 146.0 196.0 L 146.0 217.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="146.0,217.0 143.2,206.4 148.8,206.4" fill="#4b5563"/>
+<path d="M 146.0 286.0 L 146.0 307.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="146.0,307.0 143.2,296.4 148.8,296.4" fill="#4b5563"/>
+<rect x="276" y="112" width="250" height="410" rx="14" fill="#fdf4e3" stroke="#efcf8f" stroke-width="1.2"/>
+<text x="290" y="134" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#374151">2  SIGNAL GATING</text>
+<rect x="296" y="146" width="210" height="70" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="401.0" y="168.28571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Silero VAD (ONNX)</text>
+<text x="401.0" y="185.28571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">speech probability</text>
+<text x="401.0" y="202.28571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">+64-sample context</text>
+<rect x="296" y="236" width="210" height="84" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="401.0" y="256.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Environment Signature</text>
+<text x="401.0" y="273.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">noise floor · sudden sound</text>
+<text x="401.0" y="290.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">raised voice · ambient shift</text>
+<text x="401.0" y="307.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">muted-mic detection</text>
+<rect x="296" y="342" width="210" height="92" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="401.0" y="366.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Segmenter</text>
+<text x="401.0" y="383.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">pre-roll + hangover</text>
+<text x="401.0" y="400.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">flush on silence / max length</text>
+<text x="401.0" y="417.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">blips discarded as noise</text>
+<path d="M 236.0 352.0 L 266.0 352.0 L 266.0 181.0 L 291.0 181.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="291.0,181.0 280.4,183.8 280.4,178.2" fill="#4b5563"/>
+<path d="M 401.0 216.0 L 401.0 231.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="401.0,231.0 398.2,220.4 403.8,220.4" fill="#4b5563"/>
+<path d="M 401.0 320.0 L 401.0 337.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="401.0,337.0 398.2,326.4 403.8,326.4" fill="#4b5563"/>
+<rect x="546" y="112" width="330" height="410" rx="14" fill="#fdf4e3" stroke="#efcf8f" stroke-width="1.2"/>
+<text x="560" y="134" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#374151">3  SPEECH  (multilingual Whisper, CTranslate2)</text>
+<rect x="566" y="146" width="290" height="82" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="711.0" y="165.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Fast path — keyword spotting</text>
+<text x="711.0" y="182.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">Whisper tiny · rolling 2.5 s windows</text>
+<text x="711.0" y="199.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">phrase must repeat in 2 windows</text>
+<text x="711.0" y="216.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">→ early warning while still talking</text>
+<rect x="566" y="250" width="290" height="58" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="711.0" y="274.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Adaptive noise reduction</text>
+<text x="711.0" y="291.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">noisereduce only if segment SNR &lt; 3 dB</text>
+<rect x="566" y="330" width="290" height="104" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="711.0" y="352.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Main path — Whisper small</text>
+<text x="711.0" y="369.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">one encoder pass per segment:</text>
+<text x="711.0" y="386.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">1) language ID (99 languages, hi→ur)</text>
+<text x="711.0" y="403.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">2) native transcript  3) English translation</text>
+<text x="711.0" y="420.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">repetition / silence-hallucination filter</text>
+<path d="M 506.0 360.0 L 536.0 360.0 L 536.0 187.0 L 561.0 187.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="561.0,187.0 550.4,189.8 550.4,184.2" fill="#4b5563"/>
+<path d="M 506.0 400.0 L 561.0 400.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="561.0,400.0 550.4,402.8 550.4,397.2" fill="#4b5563"/>
+<text x="536" y="394" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#6b7280">segment</text>
+<path d="M 711.0 308.0 L 711.0 325.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="711.0,325.0 708.2,314.4 713.8,314.4" fill="#4b5563"/>
+<rect x="896" y="112" width="330" height="520" rx="14" fill="#e7f7ee" stroke="#96d8b0" stroke-width="1.2"/>
+<text x="910" y="134" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#374151">4  THREAT ENGINE  (native text + English translation)</text>
+<rect x="916" y="146" width="290" height="58" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1061.0" y="170.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Keyword layer</text>
+<text x="1061.0" y="187.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">Aho-Corasick · 330 phrases · 6 languages</text>
+<rect x="916" y="216" width="290" height="58" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1061.0" y="240.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Phonetic layer</text>
+<text x="1061.0" y="257.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">folds letters Whisper confuses + edit distance</text>
+<rect x="916" y="286" width="290" height="58" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1061.0" y="310.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Spoken-number layer</text>
+<text x="1061.0" y="327.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">CNIC · card (Luhn) · IBAN · phone · IP</text>
+<rect x="916" y="356" width="290" height="58" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1061.0" y="380.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Semantic layer — MiniLM-L12 (ONNX)</text>
+<text x="1061.0" y="397.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">contrastive margin vs benign anchors</text>
+<rect x="946" y="440" width="230" height="74" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1061.0" y="464.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Fusion</text>
+<text x="1061.0" y="481.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">probabilistic OR · repeat escalation</text>
+<text x="1061.0" y="498.2857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">→ score + severity</text>
+<path d="M 856.0 382.0 L 886.0 382.0 L 886.0 185.0 L 911.0 185.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="911.0,185.0 900.4,187.8 900.4,182.2" fill="#4b5563"/>
+<path d="M 886.0 245.0 L 911.0 245.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="911.0,245.0 900.4,247.8 900.4,242.2" fill="#4b5563"/>
+<path d="M 886.0 315.0 L 911.0 315.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="911.0,315.0 900.4,317.8 900.4,312.2" fill="#4b5563"/>
+<path d="M 886.0 382.0 L 911.0 384.5" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="911.0,384.5 900.2,386.3 900.7,380.6" fill="#4b5563"/>
+<path d="M 856.0 160.0 L 911.0 160.0" fill="none" stroke="#b45309" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="911.0,160.0 900.4,162.8 900.4,157.2" fill="#b45309"/>
+<text x="886" y="154" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#6b7280">KWS hits</text>
+<path d="M 1061.0 414.0 L 1061.0 435.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="1061.0,435.0 1058.2,424.4 1063.8,424.4" fill="#4b5563"/>
+<rect x="546" y="540" width="330" height="92" rx="14" fill="#f1ecfd" stroke="#c3b1f0" stroke-width="1.2"/>
+<text x="560" y="562" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#374151">5  SECOND OPINION</text>
+<rect x="566" y="568" width="290" height="54" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="711.0" y="590.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Whisper large-v3-turbo</text>
+<text x="711.0" y="607.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">re-checks risky, non-critical segments</text>
+<path d="M 946.0 500.0 L 886.0 500.0 L 886.0 595.0 L 861.0 595.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="861.0,595.0 871.6,592.2 871.6,597.8" fill="#4b5563"/>
+<text x="852" y="538" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#6b7280">risk ≥ 0.2</text>
+<path d="M 711.0 568.0 L 711.0 439.0" fill="none" stroke="#7c3aed" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="711.0,439.0 713.8,449.6 708.2,449.6" fill="#7c3aed"/>
+<text x="741" y="499" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#6b7280">upgrade</text>
+<rect x="1246" y="112" width="238" height="520" rx="14" fill="#fdecee" stroke="#f1a9b3" stroke-width="1.2"/>
+<text x="1260" y="134" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#374151">6  OUTPUTS</text>
+<rect x="1262" y="150" width="206" height="92" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1365.0" y="174.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">SQLite audit trail</text>
+<text x="1365.0" y="191.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">HIGH / CRITICAL alerts</text>
+<text x="1365.0" y="208.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">SHA-256 hash chain</text>
+<text x="1365.0" y="225.78571428571428" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">consent · erasure · retention</text>
+<rect x="1262" y="266" width="206" height="92" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1365.0" y="290.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Backend forwarder</text>
+<text x="1365.0" y="307.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">HTTPS · Bearer + HMAC</text>
+<text x="1365.0" y="324.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">outbox with retry</text>
+<text x="1365.0" y="341.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">metadata only</text>
+<rect x="1262" y="382" width="206" height="70" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1365.0" y="412.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">WebSocket broadcast</text>
+<text x="1365.0" y="429.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">every event, live</text>
+<rect x="1262" y="476" width="206" height="70" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.3"/>
+<text x="1365.0" y="506.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Live dashboard</text>
+<text x="1365.0" y="523.7857142857142" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">static · offline · no CDN</text>
+<path d="M 1176.0 477.0 L 1236.0 477.0 L 1236.0 196.0 L 1257.0 196.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="1257.0,196.0 1246.4,198.8 1246.4,193.2" fill="#4b5563"/>
+<path d="M 1236.0 312.0 L 1257.0 312.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="1257.0,312.0 1246.4,314.8 1246.4,309.2" fill="#4b5563"/>
+<path d="M 1236.0 417.0 L 1257.0 417.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="1257.0,417.0 1246.4,419.8 1246.4,414.2" fill="#4b5563"/>
+<path d="M 1365.0 452.0 L 1365.0 471.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="1365.0,471.0 1362.2,460.4 1367.8,460.4" fill="#4b5563"/>
+<rect x="36" y="660" width="1448" height="56" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.3"/>
+<text x="760.0" y="692.4642857142857" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12.5" font-weight="700" fill="#111827">FastAPI — REST + WebSocket   /health · /status · /capabilities · /stream/start|stop · /analyze · /analyze/audio · /alerts · /alerts/export.csv · /audit/verify · /policy · /privacy/manifest · /ws · /audio</text>
+<path d="M 1061.0 514.0 L 1061.0 632.0 L 1061.0 655.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="1061.0,655.0 1058.2,644.4 1063.8,644.4" fill="#4b5563"/>
+<rect x="36" y="736" width="1448" height="58" rx="8" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.3"/>
+<text x="760.0" y="769.4642857142857" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12.5" font-weight="700" fill="#111827">Privacy by design:  audio lives only in RAM  ·  consent gate with operator name  ·  transcripts optional (hash-only mode)  ·  spoken numbers masked  ·  keyword list disclosed  ·  auto-deletion  ·  tamper-evident audit</text>
+<rect x="560" y="840" width="400" height="60" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.3"/>
+<text x="760.0" y="865.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">ExfilGuard backend (Node/Express · MongoDB · SMTP)</text>
+<text x="760.0" y="882.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">receives acoustic_alert + module_status events</text>
+<rect x="1020" y="840" width="440" height="60" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.3"/>
+<text x="1240.0" y="865.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" fill="#111827">Desktop Agent / Admin dashboard (React)</text>
+<text x="1240.0" y="882.7857142857143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#4b5563">polls /capabilities · /status, subscribes to /ws</text>
+<path d="M 1468.0 312.0 L 1500.0 312.0 L 1500.0 918.0 L 760.0 918.0 L 760.0 905.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="760.0,905.0 762.8,915.6 757.2,915.6" fill="#4b5563"/>
+<text x="1130" y="932" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#6b7280">signed HTTPS events</text>
+<path d="M 1240.0 840.0 L 1240.0 721.0" fill="none" stroke="#4b5563" stroke-width="1.6" stroke-linejoin="round"/>
+<polygon points="1240.0,721.0 1242.8,731.6 1237.2,731.6" fill="#4b5563"/>
+<text x="1280" y="820" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#6b7280">HTTP / WS</text>
+<rect x="40" y="946" width="16" height="16" rx="3" fill="#e8f1fe" stroke="#9cc3f5"/>
+<text x="64" y="959" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#374151">Capture</text>
+<rect x="153" y="946" width="16" height="16" rx="3" fill="#fdf4e3" stroke="#efcf8f"/>
+<text x="177" y="959" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#374151">Signal / speech inference</text>
+<rect x="392" y="946" width="16" height="16" rx="3" fill="#e7f7ee" stroke="#96d8b0"/>
+<text x="416" y="959" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#374151">Threat scoring</text>
+<rect x="554" y="946" width="16" height="16" rx="3" fill="#f1ecfd" stroke="#c3b1f0"/>
+<text x="578" y="959" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#374151">Second opinion</text>
+<rect x="716" y="946" width="16" height="16" rx="3" fill="#fdecee" stroke="#f1a9b3"/>
+<text x="740" y="959" text-anchor="start" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#374151">Storage / delivery</text>
+</svg>

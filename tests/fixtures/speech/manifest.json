@@ -1,0 +1,142 @@
+[
+  {
+    "file": "en_leak.wav",
+    "language": "en",
+    "expect": "HIGH+",
+    "voice": "en-US-GuyNeural",
+    "text": "This is the top secret database root password. Please do not share it with anyone."
+  },
+  {
+    "file": "en_benign.wav",
+    "language": "en",
+    "expect": "NONE",
+    "voice": "en-US-JennyNeural",
+    "text": "Let's grab lunch after the meeting and talk about the weekend plans."
+  },
+  {
+    "file": "en_benign_work.wav",
+    "language": "en",
+    "expect": "NONE",
+    "voice": "en-US-AriaNeural",
+    "text": "Please send the meeting notes to the whole team before Friday."
+  },
+  {
+    "file": "en_ransom.wav",
+    "language": "en",
+    "expect": "HIGH+",
+    "voice": "en-IN-PrabhatNeural",
+    "text": "My system is compromised. There is a ransomware attack on my system."
+  },
+  {
+    "file": "en_intent.wav",
+    "language": "en",
+    "expect": "MEDIUM+",
+    "voice": "en-US-AriaNeural",
+    "text": "I'm going to quietly copy the whole client list onto my pen drive before I resign."
+  },
+  {
+    "file": "en_cnic.wav",
+    "language": "en",
+    "expect": "HIGH+",
+    "voice": "en-IN-NeerjaNeural",
+    "text": "My CNIC number is four two one zero one, five five six seven eight nine one, two."
+  },
+  {
+    "file": "ur_leak.wav",
+    "language": "ur",
+    "expect": "HIGH+",
+    "voice": "ur-PK-AsadNeural",
+    "text": "میرا ڈیٹا بیس کا پاس ورڈ یہ ہے، کسی کو مت بتانا۔"
+  },
+  {
+    "file": "ur_benign.wav",
+    "language": "ur",
+    "expect": "NONE",
+    "voice": "ur-PK-UzmaNeural",
+    "text": "آج موسم بہت اچھا ہے، چلو شام کو چائے پیتے ہیں۔"
+  },
+  {
+    "file": "ur_benign_work.wav",
+    "language": "ur",
+    "expect": "NONE",
+    "voice": "ur-PK-AsadNeural",
+    "text": "کل صبح دس بجے میٹنگ ہے، سب لوگ وقت پر آ جانا۔"
+  },
+  {
+    "file": "ur_intent.wav",
+    "language": "ur",
+    "expect": "MEDIUM+",
+    "voice": "ur-PK-UzmaNeural",
+    "text": "کمپنی چھوڑنے سے پہلے میں یہ ساری فائلیں اپنے ذاتی ای میل پر بھیج دوں گا۔"
+  },
+  {
+    "file": "ur_mixed.wav",
+    "language": "ur",
+    "expect": "HIGH+",
+    "voice": "ur-PK-AsadNeural",
+    "text": "یار، سرور کا پاس ورڈ بتا دو، میں ڈیٹا کاپی کر لیتا ہوں۔"
+  },
+  {
+    "file": "ur_hack.wav",
+    "language": "ur",
+    "expect": "HIGH+",
+    "voice": "ur-PK-UzmaNeural",
+    "text": "ہمارا سسٹم ہیک ہو گیا ہے، ڈیٹا چوری ہو رہا ہے۔"
+  },
+  {
+    "file": "ur_bomb.wav",
+    "language": "ur",
+    "expect": "MEDIUM+",
+    "voice": "ur-PK-AsadNeural",
+    "text": "دفتر کی عمارت میں بم رکھا گیا ہے۔"
+  },
+  {
+    "file": "ur_cnic.wav",
+    "language": "ur",
+    "expect": "HIGH+",
+    "voice": "ur-PK-UzmaNeural",
+    "text": "میرا شناختی کارڈ نمبر چار دو ایک صفر ایک پانچ پانچ چھ سات آٹھ نو ایک دو ہے۔"
+  },
+  {
+    "file": "hi_leak.wav",
+    "language": "hi",
+    "expect": "HIGH+",
+    "voice": "hi-IN-MadhurNeural",
+    "text": "सर्वर का पासवर्ड किसी को मत बताना, यह बहुत गुप्त है।"
+  },
+  {
+    "file": "hi_benign.wav",
+    "language": "hi",
+    "expect": "NONE",
+    "voice": "hi-IN-SwaraNeural",
+    "text": "कल हम सब मिलकर क्रिकेट मैच देखने चलेंगे।"
+  },
+  {
+    "file": "ar_leak.wav",
+    "language": "ar",
+    "expect": "HIGH+",
+    "voice": "ar-SA-HamedNeural",
+    "text": "كلمة المرور الخاصة بقاعدة البيانات سرية جدا، لا تخبر أحدا."
+  },
+  {
+    "file": "ar_benign.wav",
+    "language": "ar",
+    "expect": "NONE",
+    "voice": "ar-SA-ZariyahNeural",
+    "text": "الطقس جميل اليوم، هل تريد أن نشرب القهوة معا؟"
+  },
+  {
+    "file": "fa_leak.wav",
+    "language": "fa",
+    "expect": "MEDIUM+",
+    "voice": "fa-IR-FaridNeural",
+    "text": "رمز عبور سرور را به هیچ کس نگو."
+  },
+  {
+    "file": "fa_benign.wav",
+    "language": "fa",
+    "expect": "NONE",
+    "voice": "fa-IR-DilaraNeural",
+    "text": "امروز هوا خیلی خوب است، بیا با هم چای بنوشیم."
+  }
+]

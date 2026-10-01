@@ -1,0 +1,487 @@
+# Acoustic Guard threat registry.
+#
+# Each category has a base weight (0-1) and a list of phrases. `phrases` holds the English
+# forms; `variants` holds the same ideas in other languages/scripts:
+#   ur        Urdu (Nastaliq / Arabic script)
+#   roman_ur  Roman Urdu, as people actually type and as Whisper often spells it
+#   hi        Hindi (Devanagari) - Whisper frequently writes spoken Urdu in Devanagari
+#   ar, fa    Arabic, Persian
+# A phrase can be a plain string or {text, weight} to override the category weight.
+# Matching is case-, punctuation- and diacritic-insensitive and respects word boundaries.
+
+categories:
+  credentials:
+    weight: 0.95
+    phrases:
+      - "root password"
+      - "admin password"
+      - "administrator password"
+      - "database password"
+      - "database credentials"
+      - "api key"
+      - "api secret"
+      - "secret key"
+      - "access token"
+      - "auth token"
+      - "bearer token"
+      - "private key"
+      - "ssh key"
+      - "ssh credentials"
+      - "connection string"
+      - "master password"
+      - "master key"
+      - "encryption key"
+      - "decryption key"
+      - "login credentials"
+      - "username and password"
+      - "two factor code"
+      - "otp code"
+      - "recovery code"
+      - "security question"
+      - "pin code"
+      - "wifi password"
+      - "vault password"
+      - "aws access key"
+      - "aws secret key"
+      - "service account key"
+      - "certificate private key"
+      - "root access"
+      - "sudo password"
+      - "the password is"
+      - { text: "password", weight: 0.6 }
+    variants:
+      ur:
+        - { text: "پاس ورڈ", weight: 0.6 }
+        - { text: "پاسورڈ", weight: 0.6 }
+        - "روٹ پاس ورڈ"
+        - "ایڈمن پاس ورڈ"
+        - "ڈیٹابیس پاس ورڈ"
+        - "ڈیٹا بیس پاس ورڈ"
+        - "ڈیٹا بیس کا پاس ورڈ"
+        - "سرور کا پاس ورڈ"
+        - "پاس ورڈ بتا"
+        - "پاس ورڈ یہ ہے"
+        - "پاس ورڈ دے"
+        - "پن کوڈ"
+        - "او ٹی پی"
+        - "خفیہ کوڈ"
+        - "خفیہ کلید"
+        - "لاگ ان کی تفصیلات"
+        - "یوزر نیم اور پاس ورڈ"
+        - "وائی فائی کا پاس ورڈ"
+        - "اے پی آئی کی"
+        - "ایکسیس ٹوکن"
+        - "پرائیویٹ کی"
+        - "انکرپشن کی"
+      roman_ur:
+        - "password bata do"
+        - "password batao"
+        - "password de do"
+        - "password ye hai"
+        - "password yeh hai"
+        - "database ka password"
+        - "admin ka password"
+        - "root ka password"
+        - "server ka password"
+        - "wifi ka password"
+        - "pin code bata"
+        - "otp bata"
+        - "otp bhejo"
+        - "login details bhejo"
+        - "khufia code"
+      hi:
+        - { text: "पासवर्ड", weight: 0.6 }
+        - "रूट पासवर्ड"
+        - "एडमिन पासवर्ड"
+        - "डेटाबेस पासवर्ड"
+        - "डेटाबेस का पासवर्ड"
+        - "सर्वर का पासवर्ड"
+        - "पासवर्ड बता"
+        - "ओटीपी"
+        - "पिन कोड"
+        - "गुप्त कोड"
+      ar:
+        - { text: "كلمة المرور", weight: 0.6 }
+        - { text: "كلمة السر", weight: 0.6 }
+        - "رمز التحقق"
+        - "المفتاح السري"
+      fa:
+        - { text: "رمز عبور", weight: 0.6 }
+        - "کلید خصوصی"
+
+  project_codenames:
+    weight: 0.85
+    phrases:
+      - "exfilguard"
+      - "project phoenix"
+      - "project titan"
+      - "project atlas"
+      - "project nova"
+      - "project apollo"
+      - "operation blackout"
+      - "operation nightfall"
+      - "confidential codename"
+      - "internal project name"
+      - "unreleased product"
+      - "upcoming launch"
+      - "under nda"
+      - "not yet announced"
+    variants:
+      ur:
+        - "ایکسفل گارڈ"
+        - "پروجیکٹ فینکس"
+        - "پروجیکٹ ٹائٹن"
+        - "آپریشن بلیک آؤٹ"
+        - "خفیہ منصوبہ"
+        - "خفیہ پروجیکٹ"
+      roman_ur:
+        - "khufia project"
+        - "khufia mansooba"
+        - "secret project ka naam"
+      hi:
+        - "गुप्त परियोजना"
+        - "सीक्रेट प्रोजेक्ट"
+        - "प्रोजेक्ट फीनिक्स"
+
+  financial:
+    weight: 0.75
+    phrases:
+      - "bank account number"
+      - "account number"
+      - "routing number"
+      - "credit card number"
+      - "debit card number"
+      - "card verification value"
+      - "cvv number"
+      - "iban"
+      - "swift code"
+      - "salary figures"
+      - "salary details"
+      - "compensation package"
+      - "acquisition price"
+      - "acquisition deal"
+      - "merger deal"
+      - "merger agreement"
+      - "revenue figures"
+      - "profit margins"
+      - "quarterly earnings"
+      - "investment portfolio"
+      - "tax identification number"
+      - "financial statement"
+      - "budget allocation"
+      - "layoff plans"
+      - "stock price target"
+      - "insider trading"
+    variants:
+      ur:
+        - "بینک اکاؤنٹ نمبر"
+        - "اکاؤنٹ نمبر"
+        - "کریڈٹ کارڈ نمبر"
+        - "کارڈ نمبر"
+        - "آئی بین"
+        - "تنخواہ کی تفصیلات"
+        - "مالیاتی رپورٹ"
+        - "بجٹ کی تفصیلات"
+        - "انضمام کا معاہدہ"
+      roman_ur:
+        - "account number bata"
+        - "card number bata"
+        - "bank details bhejo"
+        - "salary slip bhejo"
+        - "salary ki details"
+      hi:
+        - "बैंक खाता संख्या"
+        - "अकाउंट नंबर"
+        - "क्रेडिट कार्ड नंबर"
+        - "कार्ड नंबर"
+        - "वेतन विवरण"
+      ar:
+        - "رقم الحساب"
+        - "رقم البطاقة"
+      fa:
+        - "شماره حساب"
+        - "شماره کارت"
+
+  pii:
+    weight: 0.7
+    phrases:
+      - "social security number"
+      - "cnic number"
+      - "national id number"
+      - "passport number"
+      - "driver license number"
+      - "date of birth and address"
+      - "home address"
+      - "medical record"
+      - "medical history"
+      - "health insurance number"
+      - "biometric data"
+      - "employee id number"
+      - "background check results"
+      - "criminal record"
+      - "immigration status"
+    variants:
+      ur:
+        - "شناختی کارڈ نمبر"
+        - "شناختی کارڈ"
+        - "پاسپورٹ نمبر"
+        - "گھر کا پتہ"
+        - "تاریخ پیدائش"
+        - "میڈیکل ریکارڈ"
+        - "طبی ریکارڈ"
+        - "بائیومیٹرک"
+      roman_ur:
+        - "shanakhti card number"
+        - "id card number"
+        - "ghar ka pata"
+        - "passport number bata"
+      hi:
+        - "आधार नंबर"
+        - "पासपोर्ट नंबर"
+        - "घर का पता"
+        - "जन्म तिथि"
+        - "मेडिकल रिकॉर्ड"
+      ar:
+        - "رقم الهوية"
+        - "رقم جواز السفر"
+
+  infrastructure:
+    weight: 0.8
+    phrases:
+      - "production server"
+      - "production environment"
+      - "internal network address"
+      - "internal ip address"
+      - "firewall rules"
+      - "vpn credentials"
+      - "vpn configuration"
+      - "database schema"
+      - "database connection"
+      - "source code repository"
+      - "private repository"
+      - "deployment pipeline"
+      - "kubernetes cluster"
+      - "server hostname"
+      - "network topology"
+      - "load balancer configuration"
+      - "backup location"
+      - "disaster recovery plan"
+      - "penetration test results"
+      - "vulnerability report"
+      - "security audit findings"
+    variants:
+      ur:
+        - "پروڈکشن سرور"
+        - "آئی پی ایڈریس"
+        - "فائر وال"
+        - "وی پی این"
+        - "سورس کوڈ"
+        - "ڈیٹابیس اسکیما"
+        - "نیٹ ورک کی تفصیلات"
+      roman_ur:
+        - "source code bhej"
+        - "vpn details"
+        - "server ki details"
+      hi:
+        - "सोर्स कोड"
+        - "आईपी एड्रेस"
+        - "प्रोडक्शन सर्वर"
+
+  exfiltration_intent:
+    weight: 0.8
+    phrases:
+      - "leak this"
+      - "leak the data"
+      - "leak it to"
+      - "send it to my personal email"
+      - "forward it to my personal"
+      - "copy it to a usb"
+      - "copy the data to usb"
+      - "take the files home"
+      - "sell the data"
+      - "delete the logs"
+      - "upload it to my drive"
+      - "before it finds out"
+      - "don't tell anyone"
+      - "keep this between us"
+    variants:
+      ur:
+        - "ڈیٹا لیک"
+        - "لیک کر دو"
+        - "معلومات لیک"
+        - "خفیہ معلومات"
+        - "فائل باہر بھیج"
+        - "یو ایس بی میں کاپی"
+        - "ذاتی ای میل پر بھیج"
+        - "کسی کو مت بتانا"
+        - "کسی کو نہ بتانا"
+        - "ڈیٹا بیچ"
+        - "لاگز ڈیلیٹ"
+      roman_ur:
+        - "data leak kar do"
+        - "leak kar do"
+        - "kisi ko mat batana"
+        - "kisi ko na batana"
+        - "usb mein copy"
+        - "personal email pe bhej"
+        - "data bech"
+        - "files ghar le ja"
+      hi:
+        - "डेटा लीक"
+        - "लीक कर दो"
+        - "किसी को मत बताना"
+        - "पेन ड्राइव में कॉपी"
+        - "गुप्त जानकारी"
+      ar:
+        - "تسريب البيانات"
+        - "لا تخبر أحدا"
+
+  security_incident:
+    weight: 0.75
+    note: "Spoken reports of an active compromise - routed to the SOC queue."
+    phrases:
+      - "ransomware"
+      - "ransomware attack"
+      - "system is compromised"
+      - "system compromised"
+      - "we have been hacked"
+      - "been hacked"
+      - "data breach"
+      - "malware infection"
+      - "keylogger"
+      - "backdoor"
+      - "phishing attack"
+    variants:
+      ur:
+        - "رینسم ویئر"
+        - "سسٹم ہیک"
+        - "ہیک ہو گیا"
+        - "ڈیٹا چوری"
+        - "وائرس کا حملہ"
+      roman_ur:
+        - "system hack ho gaya"
+        - "hack ho gaya"
+        - "data chori"
+      hi:
+        - "रैनसमवेयर"
+        - "सिस्टम हैक"
+        - "हैक हो गया"
+
+  safety_threats:
+    weight: 0.9
+    note: "Workplace-violence language. Keyword hits here have real benign usage (news, films, games) - route to human review, never automated action."
+    phrases:
+      - { text: "bomb", weight: 0.7 }
+      - "bomb threat"
+      - "planting a bomb"
+      - "explosive device"
+      - { text: "detonate", weight: 0.8 }
+      - { text: "shooting", weight: 0.5 }
+      - "active shooter"
+      - "bring a gun"
+      - "bring a weapon"
+      - "hurt someone"
+      - "kill someone"
+      - "going to attack"
+      - "mass casualty"
+      - "terrorist attack"
+      - "hostage"
+    variants:
+      ur:
+        - { text: "بم", weight: 0.7 }
+        - "بم دھماکہ"
+        - { text: "دھماکہ", weight: 0.6 }
+        - { text: "دھماکا", weight: 0.6 }
+        - { text: "بندوق", weight: 0.6 }
+        - "گولی مار"
+        - "قتل کر"
+        - "یرغمال"
+        - "دہشت گرد حملہ"
+      roman_ur:
+        - "bomb blast"
+        - { text: "dhamaka", weight: 0.6 }
+        - "goli maar"
+        - "qatl kar"
+        - "hamla kar"
+      hi:
+        - { text: "बम", weight: 0.7 }
+        - { text: "धमाका", weight: 0.6 }
+        - { text: "बंदूक", weight: 0.6 }
+        - "गोली मार"
+        - "आतंकी हमला"
+      ar:
+        - { text: "قنبلة", weight: 0.7 }
+        - "هجوم إرهابي"
+
+sensitive_patterns:
+  cnic:
+    weight: 0.8
+    label: "CNIC / national ID number"
+  payment_card:
+    weight: 0.9
+    label: "Payment card number (Luhn-valid)"
+  iban:
+    weight: 0.85
+    label: "IBAN"
+  phone:
+    weight: 0.5
+    label: "Phone number"
+  ipv4:
+    weight: 0.6
+    label: "IPv4 address"
+  long_number:
+    weight: 0.45
+    label: "Long numeric identifier"
+
+semantic_reference_phrases:
+  - "I am going to send this confidential file to my personal email"
+  - "let me copy this data before I leave the company"
+  - "don't tell anyone but I'm taking these files with me"
+  - "I can get you the internal documents if you pay me"
+  - "I'll leak this to a competitor"
+  - "save this to a USB drive before IT finds out"
+  - "I'm going to upload this to my personal cloud storage"
+  - "this stays between us, don't put it in writing"
+  - "I know someone who would pay a lot for this information"
+  - "delete the logs so nobody knows I accessed this"
+  - "forward this to my personal number before they notice"
+  - "I'll photograph the screen so there's no digital trail"
+  - "یہ خفیہ فائل میں اپنے ذاتی ای میل پر بھیج دوں گا"
+  - "کمپنی چھوڑنے سے پہلے میں یہ سارا ڈیٹا کاپی کر لوں گا"
+  - "کسی کو مت بتانا، یہ فائلیں میں اپنے ساتھ لے جا رہا ہوں"
+  - "اگر تم پیسے دو تو میں تمہیں اندر کی دستاویزات دے سکتا ہوں"
+  - "یہ معلومات میں دوسری کمپنی کو لیک کر دوں گا"
+  - "آئی ٹی کو پتہ چلنے سے پہلے یہ یو ایس بی میں ڈال لو"
+  - "yeh file main apni personal email pe bhej doon ga"
+  - "kisi ko mat batana, yeh data main ghar le ja raha hoon"
+  - "paise do to main andar ki files de doon ga"
+  - "यह गोपनीय फ़ाइल मैं अपने निजी ईमेल पर भेज दूँगा"
+  - "किसी को मत बताना, यह डेटा मैं अपने साथ ले जा रहा हूँ"
+
+# Ordinary workplace sharing. The semantic score is the margin between the closest
+# exfiltration phrase and the closest of these, so routine collaboration is not flagged.
+semantic_benign_phrases:
+  - "share the agenda with everyone before the call"
+  - "put the presentation on the team folder"
+  - "mail the quotation to the customer"
+  - "forward the schedule to the department"
+  - "upload the approved report to the company portal"
+  - "let's go for tea after work"
+  - "the weather is lovely today"
+  - "I have a doctor's appointment this afternoon"
+  - "ٹیم کو میٹنگ کا ایجنڈا بھیج دو"
+  - "رپورٹ کمپنی کے فولڈر میں رکھ دو"
+  - "شام کو چائے پر چلتے ہیں"
+  - "agenda sab ko bhej do meeting se pehle"
+  - "टीम को रिपोर्ट भेज दो"
+
+scoring:
+  semantic_weight: 0.7
+  pattern_weight: 1.0
+  repeat_window_seconds: 600
+  repeat_escalation_count: 2
+  severity_bands:
+    critical: 0.85
+    high: 0.65
+    medium: 0.4
+    low: 0.2
